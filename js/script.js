@@ -21,6 +21,11 @@
 
 // Создать 1 экземпляр класса Person и 1 экземпляр класса Employee. Сделать вызов метод celebrate у обоих объектов.
 
+function isWeekend(newDate) {
+    let dayOfTheWeek = newDate.getDay();
+        return (dayOfTheWeek === 0 || dayOfTheWeek === 6);
+    }
+
 class Person {
     constructor(firstName, lastName, age, birthDayDate) {
         this.firstName = firstName;
@@ -43,7 +48,7 @@ class Employee extends Person{
     }
 
       getYearSalary() {
-        console.log(this.#salary * 12);
+        return this.#salary * 12;
     }
 
 
@@ -51,13 +56,6 @@ class Employee extends Person{
         const dateOfBirthday = new Date(this.birthDayDate);
         const currentDate= new Date();
         const newDate = new Date(currentDate.getFullYear(), dateOfBirthday.getMonth(), dateOfBirthday.getDate());
-
-        function isWeekend(newDate) {
-
-        let dayOfTheWeek = newDate.getDay();
-
-         return (dayOfTheWeek === 0 || dayOfTheWeek === 6);
-        }
 
         if (isWeekend(newDate) === true) {
             return super.celebrate();
@@ -75,6 +73,6 @@ director.celebrate();
 const manager = new Employee("Arthur", "Shanin", 28, "1994-05-17", "salesman", 7000);
 console.log(manager);
 manager.celebrate();
-manager.getYearSalary();
+console.log(manager.getYearSalary());
 
     
