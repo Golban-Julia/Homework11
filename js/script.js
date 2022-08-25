@@ -15,7 +15,7 @@
 // jobPosition
 // метод getYearSalary (как в прошлой домашке)
 // метод celebrate - который будет проверять - если день вашего дня рождения в текущем году выпадает на выходной день
-// - то вернет текст “Happy Birthday, let’s celebrate’". Если же дата рождения выпадает на выходной - 
+// - то вернет текст “Happy Birthday, let’s celebrate’". Если же дата рождения выпадает на выходной -
 // то вернет текст “Happy Birthday, but I need to work"
 
 
@@ -34,33 +34,47 @@ class Person {
 }
 
 class Employee extends Person{
-    _salary = 0;
-    constructor(firstName, lastName, age, birthDayDate,jobPosition) {
+    #salary = 0;
+
+    constructor(firstName, lastName, age, birthDayDate, jobPosition, salary) {
         super(firstName, lastName, age, birthDayDate);
         this.jobPosition = jobPosition;
+        this.#salary = salary;
     }
 
-    setYearSalary(value) {
-        this._salary = value;
-        console.log(value * 12);
+      getYearSalary() {
+        console.log(this.#salary * 12);
     }
-    
+
+
     celebrate() {
-        const dateOfBirthday = new Date(this.birthDayDate).getDay();
-        
-        if (dateOfBirthday > 4) {
+        const dateOfBirthday = new Date(this.birthDayDate);
+        const currentDate= new Date();
+        const newDate = new Date(currentDate.getFullYear(), dateOfBirthday.getMonth(), dateOfBirthday.getDate());
+
+        function isWeekend(newDate) {
+
+        let dayOfTheWeek = newDate.getDay();
+
+         return (dayOfTheWeek === 0 || dayOfTheWeek === 6);
+        }
+
+        if (isWeekend(newDate) === true) {
             return super.celebrate();
         } else {
             return console.log("Happy Birthday, but I need to work");
-        }
+        };
     }
-}
+};
+
 
 const director = new Person("Oleg", "Nikolaenko", 26, "1995-12-12");
 console.log(director);
 director.celebrate();
 
-const manager = new Employee("Artur", "Shanin", 28, "1994-05-14", "salesman");
+const manager = new Employee("Arthur", "Shanin", 28, "1994-05-17", "salesman", 7000);
 console.log(manager);
-manager.setYearSalary(10000);
 manager.celebrate();
+manager.getYearSalary();
+
+    
